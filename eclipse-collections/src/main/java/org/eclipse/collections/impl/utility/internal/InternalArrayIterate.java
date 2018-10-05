@@ -660,6 +660,102 @@ public final class InternalArrayIterate
         return max;
     }
 
+    public static <T, R extends Collection<T>> R minList(T[] array, int size, R target, Comparator<? super T> comparator)
+    {
+        if (size == 0)
+        {
+            throw new NoSuchElementException();
+        }
+
+        T max = array[0];
+        for (int i = 1; i < size; i++)
+        {
+            T item = array[i];
+            if (comparator.compare(item, max) == 0)
+            {
+                target.add(item);
+            }
+            else if  (comparator.compare(item, max) < 0)
+            {
+                target.clear();
+                target.add(item);
+            }
+        }
+        return target;
+    }
+
+    public static <T, R extends Collection<T>> R maxList(T[] array, int size, R target)
+    {
+        if (size == 0)
+        {
+            throw new NoSuchElementException();
+        }
+
+        T max = array[0];
+        for (int i = 1; i < size; i++)
+        {
+            T item = array[i];
+            if (((Comparable<T>) item).compareTo(max) == 0)
+            {
+                target.add(item);
+            }
+            else if (((Comparable<T>) item).compareTo(max) > 0)
+            {
+                target.clear();
+                target.add(item);
+            }
+        }
+        return target;
+    }
+
+    public static <T, R extends Collection<T>> R minList(T[] array, int size, R target)
+    {
+        if (size == 0)
+        {
+            throw new NoSuchElementException();
+        }
+
+        T max = array[0];
+        for (int i = 1; i < size; i++)
+        {
+            T item = array[i];
+            if (((Comparable<T>) item).compareTo(max) == 0)
+            {
+                target.add(item);
+            }
+            else if  (((Comparable<T>) item).compareTo(max) < 0)
+            {
+                target.clear();
+                target.add(item);
+            }
+        }
+        return target;
+    }
+
+    public static <T, R extends Collection<T>> R maxList(T[] array, int size, R target)
+    {
+        if (size == 0)
+        {
+            throw new NoSuchElementException();
+        }
+
+        T max = array[0];
+        for (int i = 1; i < size; i++)
+        {
+            T item = array[i];
+            if (((Comparable<T>) item).compareTo(max) == 0)
+            {
+                target.add(item);
+            }
+            else if (((Comparable<T>) item).compareTo(max) > 0)
+            {
+                target.clear();
+                target.add(item);
+            }
+        }
+        return target;
+    }
+
     public static <T> int count(T[] array, int size, Predicate<? super T> predicate)
     {
         int count = 0;

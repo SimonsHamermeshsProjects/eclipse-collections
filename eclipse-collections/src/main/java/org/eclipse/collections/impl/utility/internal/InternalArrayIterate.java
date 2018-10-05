@@ -684,7 +684,7 @@ public final class InternalArrayIterate
         return target;
     }
 
-    public static <T, R extends Collection<T>> R maxList(T[] array, int size, R target)
+    public static <T, R extends Collection<T>> R maxList(T[] array, int size, R target, Comparator<? super T> comparator)
     {
         if (size == 0)
         {
@@ -695,11 +695,11 @@ public final class InternalArrayIterate
         for (int i = 1; i < size; i++)
         {
             T item = array[i];
-            if (((Comparable<T>) item).compareTo(max) == 0)
+            if (comparator.compare(item, max) == 0)
             {
                 target.add(item);
             }
-            else if (((Comparable<T>) item).compareTo(max) > 0)
+            else if (comparator.compare(item, max) > 0)
             {
                 target.clear();
                 target.add(item);

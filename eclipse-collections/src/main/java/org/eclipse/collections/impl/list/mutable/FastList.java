@@ -1006,6 +1006,54 @@ public class FastList<T>
     }
 
     @Override
+    public FastList<T> minList(Comparator<? super T> comparator)
+    {
+        return this.minList(comparator, FastList.newList());
+    }
+
+    @Override
+    public <R extends Collection<T>> R minList(Comparator<? super T> comparator, R target)
+    {
+        return InternalArrayIterate.minList(this.items, this.size, target, comparator);
+    }
+
+    @Override
+    public FastList<T> minList()
+    {
+        return this.minList(FastList.newList());
+    }
+
+    @Override
+    public <R extends Collection<T>> R minList(R target)
+    {
+        return InternalArrayIterate.minList(this.items, this.size, target);
+    }
+
+    @Override
+    public FastList<T> maxList(Comparator<? super T> comparator)
+    {
+        return this.maxList(comparator, FastList.newList());
+    }
+
+    @Override
+    public <R extends Collection<T>> R maxList(Comparator<? super T> comparator, R target)
+    {
+        return InternalArrayIterate.maxList(this.items, this.size, target, comparator);
+    }
+
+    @Override
+    public FastList<T> maxList()
+    {
+        return this.maxList(FastList.newList());
+    }
+
+    @Override
+    public <R extends Collection<T>> R maxList(R target)
+    {
+        return InternalArrayIterate.maxList(this.items, this.size, target);
+    }
+
+    @Override
     public <V extends Comparable<? super V>> T minBy(Function<? super T, ? extends V> function)
     {
         return InternalArrayIterate.minBy(this.items, this.size, function);

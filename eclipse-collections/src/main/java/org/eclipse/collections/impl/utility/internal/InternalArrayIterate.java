@@ -60,6 +60,7 @@ import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.factory.primitive.ObjectDoubleMaps;
 import org.eclipse.collections.impl.factory.primitive.ObjectLongMaps;
 import org.eclipse.collections.impl.list.mutable.FastList;
+import org.eclipse.collections.impl.map.mutable.primitive.ObjectBooleanHashMap;
 import org.eclipse.collections.impl.map.mutable.primitive.ObjectDoubleHashMap;
 import org.eclipse.collections.impl.partition.list.PartitionFastList;
 import org.eclipse.collections.impl.set.mutable.UnifiedSet;
@@ -658,6 +659,64 @@ public final class InternalArrayIterate
             }
         }
         return max;
+    }
+
+    public static <R, T, V extends Collection<T>> V minByList(
+            T[] array,
+            int size,
+            V target,
+            Function<? super T, ? extends R> function)
+    {
+        if (ArrayIterate.isEmpty(array))
+        {
+            throw new NoSuchElementException();
+        }
+
+        T min = array[0];
+        R minValue = function.valueOf(min);
+        for (int i = 1; i < size; i++)
+        {
+            T next = array[i];
+            R nextValue = function.valueOf(next);
+            if (((Comparable<R>) nextValue).compareTo(minValue) == 0)
+            {
+                target.add(next);
+            } else if (((Comparable<R>) nextValue).compareTo(minValue) < 0)
+            {
+                target.clear();
+                target.add(next);
+            }
+        }
+        return target;
+    }
+
+    public static <R, T, V extends Collection<T>> V maxByList(
+            T[] array,
+            int size,
+            V target,
+            Function<? super T, ? extends R> function)
+    {
+        if (ArrayIterate.isEmpty(array))
+        {
+            throw new NoSuchElementException();
+        }
+
+        T min = array[0];
+        R minValue = function.valueOf(min);
+        for (int i = 1; i < size; i++)
+        {
+            T next = array[i];
+            R nextValue = function.valueOf(next);
+            if (((Comparable<R>) nextValue).compareTo(minValue) == 0)
+            {
+                target.add(next);
+            } else if (((Comparable<R>) nextValue).compareTo(minValue) > 0)
+            {
+                target.clear();
+                target.add(next);
+            }
+        }
+        return target;
     }
 
     public static <T, R extends Collection<T>> R minList(T[] array, int size, R target, Comparator<? super T> comparator)
